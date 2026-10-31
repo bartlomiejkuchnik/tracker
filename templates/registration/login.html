@@ -1,4 +1,10 @@
-<h1>Tracker — logowanie</h1>
+{% extends "base.html" %}
+
+{% block title %}Logowanie — Tracker{% endblock %}
+
+{% block content %}
+<h1>Witaj ponownie</h1>
+<p>Zaloguj się do swojego trackera.</p>
 
 <form method="post">
   {% csrf_token %}
@@ -6,4 +12,5 @@
   <button type="submit">Zaloguj</button>
 </form>
 
-<p><a href="{% url 'signup' %}">Utwórz konto</a></p>
+<p>Nie masz jeszcze konta? <a href="{% url 'signup' %}">Utwórz konto</a></p>
+{% endblock %}

@@ -1,4 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Rejestracja — Tracker{% endblock %}
+
+{% block content %}
 <h1>Utwórz konto</h1>
+<p>Załóż konto, żeby zapisywać swoje pomiary i posiłki.</p>
 
 <form method="post">
   {% csrf_token %}
@@ -6,4 +12,5 @@
   <button type="submit">Zarejestruj</button>
 </form>
 
-<p><a href="{% url 'login' %}">Mam już konto</a></p>
+<p>Masz już konto? <a href="{% url 'login' %}">Zaloguj się</a></p>
+{% endblock %}

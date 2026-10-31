@@ -1,41 +1,63 @@
-<h1>Tracker wagi i diety</h1>
-<p>Zalogowany użytkownik: {{ request.user.username }}</p>
+{% extends "base.html" %}
 
-<form method="post" action="{% url 'logout' %}">
-  {% csrf_token %}
-  <button type="submit">Wyloguj</button>
-</form>
+{% block title %}Panel — Tracker{% endblock %}
 
-<h2>Dodaj pomiar wagi</h2>
-<form method="post">
-  {% csrf_token %}
-  <input type="hidden" name="form_type" value="weight">
-  {{ weight_form.as_p }}
-  <button type="submit">Zapisz pomiar</button>
-</form>
+{% block content %}
+<div class="top-bar">
+  <div>
+    <h1>Twój tracker</h1>
+    <p>Cześć, {{ request.user.username }}!</p>
+  </div>
 
-<h2>Pomiary</h2>
-<ul>
-  {% for entry in weights %}
-    <li>{{ entry.date }} — {{ entry.weight_kg }} kg {{ entry.note }}</li>
-  {% empty %}
-    <li>Brak pomiarów.</li>
-  {% endfor %}
-</ul>
+  <form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button class="secondary-button" type="submit">Wyloguj</button>
+  </form>
+</div>
 
-<h2>Dodaj posiłek</h2>
-<form method="post">
-  {% csrf_token %}
-  <input type="hidden" name="form_type" value="food">
-  {{ food_form.as_p }}
-  <button type="submit">Zapisz posiłek</button>
-</form>
+<div class="columns">
+  <section class="section-card">
+    <h2>Dodaj pomiar wagi</h2>
 
-<h2>Posiłki</h2>
-<ul>
-  {% for entry in foods %}
-    <li>{{ entry.date }} — {{ entry.name }}: {{ entry.calories }} kcal</li>
-  {% empty %}
-    <li>Brak posiłków.</li>
-  {% endfor %}
-</ul>
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="form_type" value="weight">
+      {{ weight_form.as_p }}
+      <button type="submit">Zapisz pomiar</button>
+    </form>
+
+    <h2>Historia wagi</h2>
+    <ul class="entry-list">
+      {% for entry in weights %}
+        <li>{{ entry.date }} — <strong>{{ entry.weight_kg }} kg</strong>
+          {% if entry.note %}<br>{{ entry.note }}{% endif %}
+        </li>
+      {% empty %}
+        <li>Brak pomiarów.</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="section-card">
+    <h2>Dodaj posiłek</h2>
+
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="form_type" value="food">
+      {{ food_form.as_p }}
+      <button type="submit">Zapisz posiłek</button>
+    </form>
+
+    <h2>Posiłki</h2>
+    <ul class="entry-list">
+      {% for entry in foods %}
+        <li>{{ entry.date }} — <strong>{{ entry.name }}</strong>,
+          {{ entry.calories }} kcal
+        </li>
+      {% empty %}
+        <li>Brak posiłków.</li>
+      {% endfor %}
+    </ul>
+  </section>
+</div>
+{% endblock %}
