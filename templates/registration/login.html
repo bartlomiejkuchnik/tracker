@@ -1,0 +1,9 @@
+<h1>Tracker — logowanie</h1>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Zaloguj</button>
+</form>
+
+<p><a href="{% url 'signup' %}">Utwórz konto</a></p>

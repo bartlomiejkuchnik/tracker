@@ -1,0 +1,41 @@
+<h1>Tracker wagi i diety</h1>
+<p>Zalogowany użytkownik: {{ request.user.username }}</p>
+
+<form method="post" action="{% url 'logout' %}">
+  {% csrf_token %}
+  <button type="submit">Wyloguj</button>
+</form>
+
+<h2>Dodaj pomiar wagi</h2>
+<form method="post">
+  {% csrf_token %}
+  <input type="hidden" name="form_type" value="weight">
+  {{ weight_form.as_p }}
+  <button type="submit">Zapisz pomiar</button>
+</form>
+
+<h2>Pomiary</h2>
+<ul>
+  {% for entry in weights %}
+    <li>{{ entry.date }} — {{ entry.weight_kg }} kg {{ entry.note }}</li>
+  {% empty %}
+    <li>Brak pomiarów.</li>
+  {% endfor %}
+</ul>
+
+<h2>Dodaj posiłek</h2>
+<form method="post">
+  {% csrf_token %}
+  <input type="hidden" name="form_type" value="food">
+  {{ food_form.as_p }}
+  <button type="submit">Zapisz posiłek</button>
+</form>
+
+<h2>Posiłki</h2>
+<ul>
+  {% for entry in foods %}
+    <li>{{ entry.date }} — {{ entry.name }}: {{ entry.calories }} kcal</li>
+  {% empty %}
+    <li>Brak posiłków.</li>
+  {% endfor %}
+</ul>

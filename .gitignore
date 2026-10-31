@@ -1,0 +1,20 @@
+# Środowisko wirtualne
+venv/
+.venv/
+
+# Ustawienia lokalnego IDE
+.idea/
+
+# Lokalna baza danych
+db.sqlite3
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Sekrety i zmienne środowiskowe
+.env
+.env.*
+
+# Pliki tymczasowe systemu Windows
+Thumbs.db
